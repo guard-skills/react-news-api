@@ -1,8 +1,7 @@
 @import url("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css");
-
 .app {
   background-color: #ebebeb;
-  min-height: 100vh;
+  height: 100vh;
 }
 
 header {
@@ -11,7 +10,6 @@ header {
 
 .header {
   width: 80%;
-  max-width: 70em;
   margin: auto;
   color: #cccccc;
 }
@@ -100,8 +98,6 @@ header {
 
 .topic-tabs {
   font-size: 0.9em;
-  max-width: 79em;
-  margin: auto;
   margin-top: 2em;
 }
 
@@ -145,17 +141,14 @@ header {
   position: relative;
   height: 15em;
   overflow: hidden;
-  margin-bottom: 1em;
   -webkit-box-shadow: 0px 1px 5px 2px rgba(63, 63, 63, 0.3);
           box-shadow: 0px 1px 5px 2px rgba(63, 63, 63, 0.3);
 }
 
 .container .news-card img {
+  height: 15em;
   position: absolute;
   left: 50%;
-  width: 100%;
-  min-width: 15em;
-  min-height: 15em;
   -webkit-transform: translateX(-50%);
           transform: translateX(-50%);
   z-index: 0;
@@ -214,7 +207,6 @@ header {
 .container .news-card .news-title {
   font-size: 1.2em;
   font-weight: 700;
-  color: white;
 }
 
 .container .news-card .news-short-description {
