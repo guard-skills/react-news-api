@@ -5,7 +5,6 @@ import Tabs from 'react-bootstrap/Tabs';
 import Tab from 'react-bootstrap/Tab';
 import Card from './card';
 
-
 var token = '21e0b8df4977ef1f7ac0ee89b1eb2347'
 
 class App extends Component {
@@ -14,68 +13,42 @@ class App extends Component {
     super(props)
 
     this.state = {
-      news: [],
-      world: [],
-      nation: [],
-      business: [],
-      technology: [],
-      entertainment: [],
-      sports: [],
-      science: [],
-      health: [],
+      worldNews: [],
+      nationNews: [],
+      businessNews: [],
+      technologyNews: [],
+      entertainmentNews: [],
+      sportsNews: [],
+      scienceNews: [],
+      healthNews: [],
     }
   }
 
-  loadArticlesTopNews=()=>{
+  loadArticlesByTerm=(term,type)=>{
 
-    var url = 'https://gnews.io/api/v3/top-news?token='+token
-
-    fetch(url)
-    .then(res=>res.json())
-    .then((data)=>{
-      var articles = data.articles
-
-      this.setState({
-        news: articles
-      })
-
-    })
-  }
-
-  loadArticlesWorld=()=>{
-
-    var url = 'https://gnews.io/api/v3/topics/world?token='+token
+    var url = 'https://gnews.io/api/v3/search?q='+term+'&token='+token
     fetch(url)
       .then(res=>res.json())
       .then((data)=>{
         var articles = data.articles
         
-        this.setState({
-          world: articles
-        })
+        var dataState = {}
+        dataState[type+'News'] = articles
 
+        this.setState(dataState)
       })
   }
 
-  loadArticlesSports=()=>{
-
-    var url = 'https://gnews.io/api/v3/topics/sports?token='+token
-    fetch(url)
-      .then(res=>res.json())
-      .then((data)=>{
-        var articles = data.articles
-        
-        this.setState({
-          sports: articles
-        })
-
-      })
-  }
 
   componentDidMount(){
-    this.loadArticlesWorld()
-    this.loadArticlesTopNews()
-    this.loadArticlesSports()
+    this.loadArticlesByTerm('world', 'world')
+    this.loadArticlesByTerm('new zealand', 'nation')
+    this.loadArticlesByTerm('business', 'business')
+    this.loadArticlesByTerm('technology', 'technology')
+    this.loadArticlesByTerm('entertainment', 'entertainment')
+    this.loadArticlesByTerm('sports', 'sports')
+    this.loadArticlesByTerm('science', 'science')
+    this.loadArticlesByTerm('health', 'health')
   }
 
   render() {
@@ -104,31 +77,12 @@ class App extends Component {
 
         <div className="main">
 
-            <Tabs defaultActiveKey="home" id="tabs-home" className="topic-tabs">
-              <Tab eventKey="home" title="Top News">
-                <div className="container">
-                  <div className="news-cards">
-                      {
-                        this.state.news.map((item)=>{
-
-                          var itemProps = {
-                            key: item.id,
-                            ...item
-                          }
-
-                          return (
-                            <Card {...itemProps}/>
-                          )
-                        })
-                      }
-                    </div>
-                </div>
-              </Tab>
+            <Tabs defaultActiveKey="world" id="tabs-home" className="topic-tabs">
               <Tab eventKey="world" title="World">
                 <div className="container">
                   <div className="news-cards">
                       {
-                        this.state.world.map((item)=>{
+                        this.state.worldNews.map((item)=>{
 
                           var itemProps = {
                             key: item.id,
@@ -144,11 +98,91 @@ class App extends Component {
                     </div>
                 </div>
               </Tab>
+              <Tab eventKey="nation" title="New Zealand">
+                <div className="container">
+                  <div className="news-cards">
+                      {
+                        this.state.nationNews.map((item)=>{
+
+                          var itemProps = {
+                            key: item.id,
+                            category: "nation",
+                            ...item
+                          }
+
+                          return (
+                            <Card {...itemProps}/>
+                          )
+                        })
+                      }
+                    </div>
+                </div>
+              </Tab>
+              <Tab eventKey="business" title="Business">
+                <div className="container">
+                  <div className="news-cards">
+                      {
+                        this.state.businessNews.map((item)=>{
+
+                          var itemProps = {
+                            key: item.id,
+                            category: "business",
+                            ...item
+                          }
+
+                          return (
+                            <Card {...itemProps}/>
+                          )
+                        })
+                      }
+                    </div>
+                </div>
+              </Tab>
+              <Tab eventKey="technology" title="Technology">
+                <div className="container">
+                  <div className="news-cards">
+                      {
+                        this.state.technologyNews.map((item)=>{
+
+                          var itemProps = {
+                            key: item.id,
+                            category: "technology",
+                            ...item
+                          }
+
+                          return (
+                            <Card {...itemProps}/>
+                          )
+                        })
+                      }
+                    </div>
+                </div>
+              </Tab>
+              <Tab eventKey="entertainment" title="Entertainment">
+                <div className="container">
+                  <div className="news-cards">
+                      {
+                        this.state.entertainmentNews.map((item)=>{
+
+                          var itemProps = {
+                            key: item.id,
+                            category: "entertainment",
+                            ...item
+                          }
+
+                          return (
+                            <Card {...itemProps}/>
+                          )
+                        })
+                      }
+                    </div>
+                </div>
+              </Tab>
               <Tab eventKey="sport" title="Sports">
                 <div className="container">
                   <div className="news-cards">
                       {
-                        this.state.sports.map((item)=>{
+                        this.state.sportsNews.map((item)=>{
 
                           var itemProps = {
                             key: item.id,
@@ -164,6 +198,47 @@ class App extends Component {
                     </div>
                 </div>
               </Tab>
+              <Tab eventKey="science" title="Science">
+                <div className="container">
+                  <div className="news-cards">
+                      {
+                        this.state.scienceNews.map((item)=>{
+
+                          var itemProps = {
+                            key: item.id,
+                            category: "science",
+                            ...item
+                          }
+
+                          return (
+                            <Card {...itemProps}/>
+                          )
+                        })
+                      }
+                    </div>
+                </div>
+              </Tab>
+              <Tab eventKey="health" title="Health">
+                <div className="container">
+                  <div className="news-cards">
+                      {
+                        this.state.healthNews.map((item)=>{
+
+                          var itemProps = {
+                            key: item.id,
+                            category: "health",
+                            ...item
+                          }
+
+                          return (
+                            <Card {...itemProps}/>
+                          )
+                        })
+                      }
+                    </div>
+                </div>
+              </Tab>
+              
             </Tabs>
 
         </div>
